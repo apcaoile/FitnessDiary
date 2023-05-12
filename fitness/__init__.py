@@ -28,6 +28,11 @@ def create_app(test_config=None):
     login_manager = LoginManager()
     login_manager.init_app(app)
 
+    from . import diary
+    app.register_blueprint(diary.bp)
+    app.add_url_rule('/', endpoint='index')
+
+
     if test_config is None:
         # load the instance config, if it exists, when not testing
         app.config.from_pyfile('config.py', silent=True)

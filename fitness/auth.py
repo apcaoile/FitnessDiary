@@ -45,16 +45,9 @@ client = WebApplicationClient(GOOGLE_CLIENT_ID)
 @bp.route("/")
 def index():
     if current_user.is_authenticated:
-        return (
-            "<p>Hello, {}! You're logged in! Email: {}</p>"
-            "<div><p>Google Profile Picture:</p>"
-            '<img src="{}" alt="Google profile pic"></img></div>'
-            '<a class="button" href="/logout">Logout</a>'.format(
-                current_user.name, current_user.email, current_user.profile_pic
-            )
-        )
+        return render_template('diary/index.html', current_user=current_user)
     else:
-        return '<a class="button" href="/login">Google Login</a>'
+        return render_template('auth/login.html')
 
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
